@@ -1,184 +1,168 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
+@import "tailwindcss";
 
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-}
-
-.hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
+@layer components {
+  /* Counter / Badge Trigger Interface */
+  .counter {
+    @apply font-mono text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded
+           bg-red-950/40 text-red-400 border border-red-500/20 shadow-[0_0_10px_rgba(255,0,51,0.15)]
+           transition-all duration-300 mb-6 cursor-pointer focus-visible:outline-2 
+           focus-visible:outline-red-500 focus-visible:outline-offset-2 hover:border-red-500
+           hover:shadow-[0_0_15px_rgba(255,0,51,0.35)] hover:text-white;
   }
 
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
+  /* Sci-Fi Hologram Logo Overlay Assembly */
+  .hero {
+    @apply relative select-none;
 
-  .framework,
-  .vite {
-    position: absolute;
-  }
+    .base,
+    .framework,
+    .vite {
+      @apply inset-x-0 mx-auto transition-transform duration-500;
+    }
 
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
+    .base {
+      @apply w-[170px] relative z-0 filter drop-shadow-[0_0_20px_rgba(255,0,51,0.25)];
+    }
 
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
-}
+    .framework,
+    .vite {
+      @apply absolute;
+    }
 
-#center {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
+    /* 3D Isometric Projection Transformation */
+    .framework {
+      @apply z-10 top-[34px] h-7 transform
+             [transform:perspective(2000px)_rotateZ(300deg)_rotateX(44deg)_rotateY(39deg)_scale(1.4)]
+             filter saturate-150 drop-shadow-[0_0_15px_#ff0033];
+    }
 
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
-}
-
-#next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
+    .vite {
+      @apply z-0 top-[107px] h-6 w-auto transform
+             [transform:perspective(2000px)_rotateZ(300deg)_rotateX(40deg)_rotateY(39deg)_scale(0.8)]
+             filter grayscale opacity-40 group-hover:opacity-80;
     }
   }
 
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
+  /* Structural Sections and Layout Controls */
+  #center {
+    @apply flex flex-col gap-6 justify-center items-center flex-grow
+           max-lg:py-8 max-lg:px-5 max-lg:gap-4.5;
   }
 
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
-}
+  #next-steps {
+    @apply flex border-t border-red-500/10 text-left bg-black/10 backdrop-blur-sm max-lg:flex-col max-lg:text-center;
 
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-}
-
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
+    & > div {
+      @apply flex-1 p-8 max-lg:py-6 max-lg:px-5;
     }
-    .button-icon {
-      height: 18px;
-      width: 18px;
+
+    .icon {
+      @apply mb-4 size-5.5 text-red-500 filter drop-shadow-[0_0_5px_#ff0033];
     }
   }
 
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
+  #docs {
+    @apply border-r border-red-500/10 max-lg:border-r-0 max-lg:border-b;
+  }
+
+  /* Navigation Options/Link Blocks Inside Interface Panels */
+  #next-steps ul {
+    @apply list-none p-0 flex gap-2 mt-8 max-lg:mt-5 max-lg:flex-wrap max-lg:justify-center;
 
     li {
-      flex: 1 1 calc(50% - 8px);
+      @apply max-lg:flex-1 max-lg:basis-[calc(50%-8px)];
+    }
+
+    .logo {
+      @apply h-4.5 filter invert brightness-90;
     }
 
     a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
+      @apply text-gray-300 font-mono text-xs tracking-wider rounded border border-red-500/10
+             bg-zinc-950/60 flex px-3 py-2 items-center gap-2 no-underline max-lg:w-full max-lg:justify-center
+             transition-all duration-300 hover:text-white hover:border-red-500/40 
+             hover:bg-red-950/20 hover:shadow-[0_0_15px_rgba(255,0,51,0.15)];
+
+      .button-icon {
+        @apply size-4.5 text-gray-400 group-hover:text-red-500;
+      }
     }
   }
-}
 
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
+  #spacer {
+    @apply h-22 border-t border-red-500/10 max-lg:h-12;
   }
-}
-
-.ticks {
-  position: relative;
+  /* Base Layout & Dynamic Background Styling */
+.welcome-container {
+  height: 100vh;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  /* Adjust this gradient mapping to match your exact visual background */
+  background: radial-gradient(circle at center, #1e3a8a 0%, #070b19 100%);
+  background-size: 100% 100%;
+}
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
+.hero-content {
+  text-align: center;
+  color: #ffffff;
+  z-index: 10;
+  pointer-events: none; /* Allows mouse tracking seamlessly */
+}
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
+/* Helper class to hide text before sliding up */
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.sub-heading {
+  font-size: 1.8rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+  opacity: 0;
+}
+
+.main-title {
+  font-size: 7rem;
+  font-weight: 700;
+  font-style: italic;
+  margin-top: -10px;
+  text-transform: lowercase;
+  opacity: 0;
+  display: inline-block;
+  pointer-events: auto; /* Ensures mouse detects this block for 3D tilt */
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  will-change: transform;
+}
+
+/* Responsive Scaling */
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 4rem;
   }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
+  .sub-heading {
+    font-size: 1.2rem;
+  }
+}
+
+  /* Cyberpunk Interface Laser Reticle Ticks */
+  .ticks {
+    @apply relative w-full;
+
+    &::before,
+    &::after {
+      content: '';
+      @apply absolute -top-1 border-5 border-transparent;
+    }
+
+    &::before {
+      @apply left-0 border-l-red-500/40;
+    }
+    &::after {
+      @apply right-0 border-r-red-500/40;
+    }
   }
 }
